@@ -1,0 +1,22 @@
+.btn-color{
+    background-color: #0e1c36;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.color{
+    background-color: #E6D500;
+}
+  
+a{
+    text-decoration: none;
+}
+
+body {
+    background-color: #BBB11F;
+}
+
+.link {
+    text-emphasis: none;
+    text-decoration: none;
+}
