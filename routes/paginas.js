@@ -6,6 +6,8 @@ const path = require('path');
 const multer = require('multer');
 
 const DATA_PATH = './data/user.json';
+const DATA_PATH_FILMES = './data/filmes.json';
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -20,28 +22,42 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const lerDados = () => {
-    return JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+    try {
+        return JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+    } catch (error) {
+        console.error("Erro ao ler os dados:", error);
+        return [];
+    }
+}
+
+const lerDadosFilmes = () => {
+    try {
+        return JSON.parse(fs.readFileSync(DATA_PATH_FILMES, 'utf-8'));
+    } catch (error) {
+        console.error("Erro ao ler os dados:", error);
+        return [];
+    }
 }
 
 const escreverDados = (data) => {
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2), 'utf-8');
+    try {
+        fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (error) {
+        console.error("Erro ao escrever os dados:", error);
+    }
 }
-//Rotas para acessar as páginas através de autenticação
-router.get('/admin', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'admin.html'));
-});
 
-router.get('/listar', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'listar.html'));
-});
-
-router.get('/cadastrar', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, '../public', 'cadastrar.html'));
-});
+const escreverDadosFilmes = (data) => {
+    try {
+        fs.writeFileSync(DATA_PATH_FILMES, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (error) {
+        console.error("Erro ao escrever os dados:", error);
+    }
+}
 
 /* Rota para acessar as páginas */
 router.get('/', (req, res) => {
-    const data = lerDados();
+    const data = lerDadosFilmes();
     res.json(data);
 });
 
@@ -49,14 +65,37 @@ router.post('/', (req, res) => {
     const data = lerDados();
     const novoDado = {
         id: Date.now(),
-            primeiro_nome: req.body.primeiro_nome,
+            username: req.body.username,
+            nome: req.body.nome,
             sobrenome: req.body.sobrenome,
             email: req.body.email,
-            senha: req.body.senha,
+            senha: req.body.senha
         };
+    
     data.push(novoDado);
     escreverDados(data);
     res.json(novoDado);
+});
+
+router.post('/cadastro_filme', upload.single('img_filme'),(req, res) => {
+    const data = lerDadosFilmes();
+
+    const novoFilme = {
+        id: Date.now(),
+        nome: req.body.titulo,
+        diretor: req.body.diretor,
+        duracao: req.body.duracao,
+        genero: req.body.genero,
+        ano_lancamento: Number(req.body.ano_lancamento),
+        enredo: req.body.enredo,
+        img_filme: req.file ? `/uploads/${req.file.filename}` : null
+
+    };
+
+    data.push(novoFilme);
+    escreverDadosFilmes(data);
+    res.json(novoFilme);
+
 });
 
 router.put('/:id', upload.single('img_prod'), (req, res) => {

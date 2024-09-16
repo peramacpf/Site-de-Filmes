@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "atividade-01": "file:",
     "body-parser": "^1.20.3",
     "express": "^4.21.0",
     "express-session": "^1.18.0",

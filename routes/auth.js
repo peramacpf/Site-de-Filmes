@@ -20,14 +20,13 @@ router.post('/login', (req, res) => {
     const users = readUsers();
 
     // Verifica se o usuário existe no arquivo user.json
-    const user = users.find(user => user.login === login && user.senha === senha);
-
+    const user = users.find(user => (user.nome === login || user.email === login) && user.senha === senha);
     if (!user) {
         return res.status(401).json({ message: 'Usuário ou senha inválidos!' });
     }
 
     // Criar a sessão de login
-    req.session.user = { login: user.login };
+    req.session.user = { login: user.nome };
     res.json({ message: 'Login bem-sucedido!' });
 });
 

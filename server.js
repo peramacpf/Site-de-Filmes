@@ -29,4 +29,6 @@ app.use('/api/paginas', routesPaginas);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}!`);
+}).on('error', (err) => {
+    console.error('Erro ao iniciar o servidor:', err);
 });

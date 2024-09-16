@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": 1726342054949,
+    "username": "peramacpf",
+    "nome": "Pedro",
+    "sobrenome": "Cândido",
+    "email": "pedro14266@gmail.com",
+    "senha": "perama"
+  },
+  {
+    "id": 1726507566508,
+    "username": "pedro14266",
+    "nome": "Pedro",
+    "sobrenome": "Mota",
+    "email": "pedro@gmail.com",
+    "senha": "peramacpf"
+  },
+  {
+    "id": 1726508913837,
+    "username": "pedro14266",
+    "nome": "Pedro",
+    "sobrenome": "Cândido",
+    "email": "pedro@gmail.com",
+    "senha": "123456"
+  }
+]

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
     <head>
-        <title>Formulário Login</title>
+        <title>Seleção</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -17,7 +17,7 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/selecionar.css">k
     </head>
 
     <body>
@@ -32,49 +32,33 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav nav-underline ms-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active" aria-current="page">Login</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="index.html" class="nav-link">Pagina Inicial</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <main>
-            <div class="container">
-                <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                    <h2 class="text-center text-dark mt-5">Login</h2>
-                    <div class="card my-5">
-            
-                      <form class="card-body cardbody-color p-lg-5" id="login" name="login" method="post">
-            
-                        <div class="text-center">
-                          <img src="imgSite/_d8098306-a322-4002-9018-6538bdbb4cd9.jpg" class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
-                            width="200px" alt="profile">
-                        </div>
-            
-                        <div class="mb-3">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="nome_email" name="nome_email" aria-describedby="emailHelp" placeholder="Nome de Usuário ou Email">
-                                <label for="nome_email" class="form-label">Nome de Usuário ou Email</label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
-                                <label for="senha" class="form-label">Senha</label>
-                            </div>
-                        </div>
-                        <div class="text-center"><button type="submit" id="logar" name="logar" class="btn btn-color px-5 mb-5 w-100">Login</button></div>
-                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">Primeira Vez? <a href="cadastrar.html" class="text-dark fw-bold"> Crie uma conta</a>
-                        </div>
-                      </form>
+        <div class="p-3 bg-success-subtle text-center">
+            <h1>Selecione as opções:</h1>
+            <p>Selecione uma das opções para se fazer uma ação: </p> 
+        </div>
+        <main class="py-5">
+            <section class="py-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <h3 class="text-center mb-4"> Gerenciar Produtos </h3>
+                            <button class="btn btn"> 
+                                <a class="btn btn btn-outline-primary" href="cadastrarFilme.html"> Cadastrar Produto </a>
+                            </button>
+                            <button class="btn btn"> 
+                               <a class="btn btn btn-outline-info" href="listarFilmes.html"> Listar Produtos </a> 
+                            </button>
+                            <button class="btn btn-outline-danger" id="logout"> Sair </button>
+                        </div>    
                     </div>
-                  </div>
                 </div>
-              </div>
+            </section>
         </main>
         <footer class="bg-black text-center py-2 mt-5 text-white">
             <div class="container">
@@ -103,6 +87,5 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
-        <script src="js/login.js"></script>
     </body>
 </html>
