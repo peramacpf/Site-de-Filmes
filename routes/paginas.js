@@ -1,20 +1,18 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
-const {isAuthenticated} = require('../middleware/authMiddleware');
 const path = require('path');
 const multer = require('multer');
 
 const DATA_PATH = './data/user.json';
 const DATA_PATH_FILMES = './data/filmes.json';
 
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        // Renomeando o arquivo de imagem ( imagem.jpg => 1749373949.jpg)
+        // Renomeando o arquivo de imagem (imagem.jpg => 1749373949.jpg)
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
@@ -65,19 +63,19 @@ router.post('/', (req, res) => {
     const data = lerDados();
     const novoDado = {
         id: Date.now(),
-            username: req.body.username,
-            nome: req.body.nome,
-            sobrenome: req.body.sobrenome,
-            email: req.body.email,
-            senha: req.body.senha
-        };
+        username: req.body.username,
+        nome: req.body.nome,
+        sobrenome: req.body.sobrenome,
+        email: req.body.email,
+        senha: req.body.senha
+    };
     
     data.push(novoDado);
     escreverDados(data);
     res.json(novoDado);
 });
 
-router.post('/cadastro_filme', upload.single('img_filme'),(req, res) => {
+router.post('/cadastro_filme', upload.single('img_filme'), (req, res) => {
     const data = lerDadosFilmes();
 
     const novoFilme = {
@@ -89,33 +87,33 @@ router.post('/cadastro_filme', upload.single('img_filme'),(req, res) => {
         ano_lancamento: Number(req.body.ano_lancamento),
         enredo: req.body.enredo,
         img_filme: req.file ? `/uploads/${req.file.filename}` : null
-
     };
 
     data.push(novoFilme);
     escreverDadosFilmes(data);
     res.json(novoFilme);
-
 });
 
-router.put('/:id', upload.single('img_prod'), (req, res) => {
-    const data = lerDados();
+router.put('/:id', upload.single('img_filme'), (req, res) => {
+    const data = lerDadosFilmes();
     const id_edit = Number(req.params.id);
-    const index = data.findIndex(produto => produto.id === id_edit);
+    const index = data.findIndex(filme => filme.id === id_edit);
 
     if (index !== -1) {
-        const produto_edit = data[index];
+        const filme_edit = data[index];
 
-        produto_edit.nome = req.body.nome || produto_edit.nome;
-        produto_edit.fabricante = req.body.fabricante || produto_edit.fabricante;
-        produto_edit.valor = Number(req.body.valor) || produto_edit.valor;
-        produto_edit.quantidade = Number(req.body.quantidade) || produto_edit.quantidade;
+        filme_edit.nome = req.body.nome || filme_edit.nome;
+        filme_edit.diretor = req.body.diretor || filme_edit.diretor;
+        filme_edit.duracao = req.body.duracao || filme_edit.duracao;
+        filme_edit.genero = req.body.genero || filme_edit.genero;
+        filme_edit.ano_lancamento = Number(req.body.ano_lancamento) || filme_edit.ano_lancamento;
+        filme_edit.enredo = req.body.enredo || filme_edit.enredo;
         
         // Substituir a imagem se uma nova for enviada
         if (req.file) {
             // Excluir a imagem antiga, se houver
-            if (produto_edit.img_produto) {
-                const img_antiga = path.join(__dirname, '..', produto_edit.img_produto);
+            if (filme_edit.img_filme) {
+                const img_antiga = path.join(__dirname, '..', filme_edit.img_filme);
                 fs.unlink(img_antiga, (erro) => {
                     if (erro) {
                         console.error("Erro ao tentar excluir a imagem antiga!", erro);
@@ -125,31 +123,29 @@ router.put('/:id', upload.single('img_prod'), (req, res) => {
                 });
             } 
             // Atualizar o caminho da nova imagem
-            produto_edit.img_produto = `/uploads/${req.file.filename}`;
+            filme_edit.img_filme = `/uploads/${req.file.filename}`;
         } 
-        // Atualiza o produto no Json
-        data[index] = produto_edit;
-        escreverDados(data);
-        res.json(produto_edit);
+        // Atualiza o filme no Json
+        data[index] = filme_edit;
+        escreverDadosFilmes(data);
+        res.json(filme_edit);
     } else {
-        res.status(404).send({message: 'Erro ao tentar atualizar o produto!'});
+        res.status(404).send({message: 'Erro ao tentar atualizar o filme!'});
     }
-
 });
 
 router.delete('/:id', (req, res) => {
-    const data = lerDados();
+    const data = lerDadosFilmes();
     const id_del = Number(req.params.id);
-    const filtro = data.filter(produto => produto.id !== id_del);
-    const idx = data.findIndex(produto => produto.id === id_del);
+    const filtro = data.filter(filme => filme.id !== id_del);
+    const idx = data.findIndex(filme => filme.id === id_del);
     
     if (data.length !== filtro.length) {
-
         const img_del = data[idx];
 
         // Se tiver uma imagem associada ela será excluída
-        if (img_del.img_produto) {
-            const imagePath = path.join(__dirname, '..', img_del.img_produto);
+        if (img_del.img_filme) {
+            const imagePath = path.join(__dirname, '..', img_del.img_filme);
             fs.unlink(imagePath, (erro) => {
                 if (erro) {
                     console.error("Erro ao tentar excluir a imagem antiga!", erro);
@@ -159,10 +155,10 @@ router.delete('/:id', (req, res) => {
             });
         } 
 
-        escreverDados(filtro);
-        res.json({message: 'Produto Excluído com Sucesso!'});
+        escreverDadosFilmes(filtro);
+        res.json({message: 'Filme Excluído com Sucesso!'});
     } else {
-        res.status(404).send({message: 'Erro ao tentar excluir o produto!'});
+        res.status(404).send({message: 'Erro ao tentar excluir o filme!'});
     }
 });
 
