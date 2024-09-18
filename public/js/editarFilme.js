@@ -5,7 +5,7 @@ const id_url = url.get('id');
 alert(id_url);
 
 
-let id = document.getElementById('id_edit');
+let id = document.getElementById('id_filme');
 let titulo = document.getElementById("titulo");
 let diretor = document.getElementById("diretor");
 let duracao = document.getElementById("duracao");
@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch('api/paginas/');
     const filmes = await response.json();
     const filme = filmes.find(filme => filme.id == id_url);
-
     if (filme) {
         id.value = filme.id;
         titulo.value = filme.nome;
