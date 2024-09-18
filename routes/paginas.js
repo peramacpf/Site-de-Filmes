@@ -56,7 +56,14 @@ const escreverDadosFilmes = (data) => {
 /* Rota para acessar as páginas */
 router.get('/', (req, res) => {
     const data = lerDadosFilmes();
-    res.json(data);
+    const query = req.query.search || ''; // Pegando a query string da busca
+    
+    // Filtrando os filmes que possuem o nome correspondente ao query da busca
+    const filmesFiltrados = data.filter(filme => 
+        filme.nome.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    res.json(filmesFiltrados);
 });
 
 router.post('/', (req, res) => {

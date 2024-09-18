@@ -4,8 +4,12 @@ loader.textContent = "Carregando filmes...";
 listarFilmes.appendChild(loader);
 
 document.addEventListener("DOMContentLoaded", async () => {
+    await carregarFilmes();
+});
+
+const carregarFilmes = async (query = '') => {
     try {
-        const response = await fetch("/api/paginas/");
+        const response = await fetch(`/api/paginas/?search=${query}`);
         if (!response.ok) {
             throw new Error("Erro ao carregar filmes.");
         }
@@ -16,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } finally {
         loader.remove();
     }
-});
+};
 
 const mostrarFilmes = (filmes) => {
     listarFilmes.innerHTML = '';
@@ -31,7 +35,7 @@ const mostrarFilmes = (filmes) => {
         col.appendChild(card);
 
         let img = document.createElement('img');
-        img.src = filme.img_filme || 'path/to/default/image.jpg'; // Caminho para uma imagem padrão
+        img.src = filme.img_filme || 'path/to/default/image.jpg';
         img.classList.add('card-img-top', 'img-fluid', 'img-thumbnail');
         img.alt = filme.nome;
         card.appendChild(img);
@@ -131,4 +135,8 @@ const descurtirFilme = async (id, btnCurtir) => {
     }
 }
 
-
+const searchInput = document.querySelector('input[type="search"]');
+searchInput.addEventListener('input', (event) => {
+    const query = event.target.value.trim(); // Remove espaços em branco
+    carregarFilmes(query); // Chama a função de carregar filmes com a consulta de busca
+});

@@ -77,7 +77,7 @@ const delFilme = async (id) => {
         method: 'DELETE',
     });
 
-    alert("Produto excluído com Sucesso!!");
+    alert("Filme excluído com Sucesso!!");
 
     window.location.href = 'listarFilmes.html';
 }
