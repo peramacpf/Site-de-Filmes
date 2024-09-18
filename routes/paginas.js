@@ -86,7 +86,8 @@ router.post('/cadastro_filme', upload.single('img_filme'), (req, res) => {
         genero: req.body.genero,
         ano_lancamento: Number(req.body.ano_lancamento),
         enredo: req.body.enredo,
-        img_filme: req.file ? `/uploads/${req.file.filename}` : null
+        img_filme: req.file ? `/uploads/${req.file.filename}` : null,
+        curtidas: 0
     };
 
     data.push(novoFilme);
@@ -131,6 +132,38 @@ router.put('/:id', upload.single('img_filme'), (req, res) => {
         res.json(filme_edit);
     } else {
         res.status(404).send({message: 'Erro ao tentar atualizar o filme!'});
+    }
+});
+
+router.put('/curtir/:id', (req, res) => {
+    const data = lerDadosFilmes();
+    const id_curtir = Number(req.params.id);
+    const index = data.findIndex(filme => filme.id === id_curtir);
+
+    if (index !== -1) {
+        const filme_curtir = data[index];
+        filme_curtir.curtidas++;
+        data[index] = filme_curtir;
+        escreverDadosFilmes(data);
+        res.json({ message: 'Filme curtido com sucesso!', filme: filme_curtir });
+    } else {
+        res.status(404).send({ message: 'Erro ao tentar curtir o filme!' });
+    }
+});
+
+router.put('/descurtir/:id', (req, res) => {
+    const data = lerDadosFilmes();
+    const id_descurtir = Number(req.params.id);
+    const index = data.findIndex(filme => filme.id === id_descurtir);
+
+    if (index !== -1) {
+        const filme_descurtir = data[index];
+        filme_descurtir.curtidas--;
+        data[index] = filme_descurtir;
+        escreverDadosFilmes(data);
+        res.json({ message: 'Filme descurtido com sucesso!', filme: filme_descurtir });
+    } else {
+        res.status(404).send({ message: 'Erro ao tentar curtir o filme!' });
     }
 });
 

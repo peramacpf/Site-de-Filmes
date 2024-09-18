@@ -5,7 +5,7 @@ function isAuthenticated(req, res, next) {
         if (req.xhr || req.headers.accept.indexOf('json') > -1) {
             return res.status(401).json({ error: 'Usuário não autenticado' });
         } else {
-            res.redirect('login.html'); // Redirecionamento para tela de login
+            res.redirect('login.html');
         }
     }
 }

@@ -7,7 +7,8 @@
     "genero": "Faroeste/Ação",
     "ano_lancamento": 2012,
     "enredo": "No sul dos Estados Unidos, o ex-escravo Django faz uma aliança inesperada com o caçador de recompensas Schultz para perseguir os criminosos mais procurados do país e resgatar sua esposa de um fazendeiro que força seus escravos a entrarem em competições mortais.",
-    "img_filme": "/uploads/1726515450328.jpg"
+    "img_filme": "/uploads/1726515450328.jpg",
+    "curtidas": 1
   },
   {
     "id": 1726516026987,
@@ -17,6 +18,7 @@
     "genero": "Crime/Ficção policial",
     "ano_lancamento": 1972,
     "enredo": "Uma família mafiosa luta para estabelecer sua supremacia nos Estados Unidos depois da Segunda Guerra Mundial. Uma tentativa de assassinato deixa o chefão Vito Corleone incapacitado e força os filhos Michael e Sonny a assumir os negócios.",
-    "img_filme": "/uploads/1726516026985.jpg"
+    "img_filme": "/uploads/1726516026985.jpg",
+    "curtidas": 1
   }
 ]
