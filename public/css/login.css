@@ -1,6 +1,6 @@
 .btn-color{
     background-color: #0e1c36;
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     font-weight: bolder;
 }
   
@@ -13,7 +13,7 @@
   
   
 .cardbody-color{
-    background-color: #E6D500;
+    background-color: #afafaf;
 }
   
 a{
@@ -21,5 +21,5 @@ a{
 }
 
 body {
-    background-color: #BBB11F;
+    background-color: #fff;
 }

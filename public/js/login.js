@@ -17,7 +17,7 @@ formularioLogin.addEventListener("submit", async (e) => {
     const result = await response.json();
     if (response.ok) {
         alert(result.message);
-        window.location.href = 'selecionar.html';
+        window.location.href = '/admin';
     } else {
         alert(result.message || "Não funcionou");
     }

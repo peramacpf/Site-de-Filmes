@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 const listarFilmes = (filmes) => {
-    listaFilmes.innerHTML = ''; // Corrigido de listarFilmes.innerHTML para listaFilmes.innerHTML
+    listaFilmes.innerHTML = '';
 
     filmes.forEach(filme => {
         const tr = document.createElement('tr');
@@ -46,7 +46,7 @@ const listarFilmes = (filmes) => {
             const img = document.createElement('img');
             img.src = filme.img_filme;
             img.alt = filme.nome;
-            img.width = 100; // Definindo o tamanho da imagem
+            img.width = 100;
             td_img.appendChild(img);
         }
         tr.appendChild(td_img);
@@ -54,7 +54,7 @@ const listarFilmes = (filmes) => {
         const td_acao = document.createElement('td');
         let btnEditar = document.createElement('a');
         btnEditar.classList.add('btn', 'btn-warning', 'me-3');
-        btnEditar.href = `editarFilme.html?id=${filme.id}`; 
+        btnEditar.href = `/editar-filme?id=${filme.id}`; 
         btnEditar.textContent = 'EDITAR';
         td_acao.appendChild(btnEditar);
 
@@ -79,7 +79,7 @@ const delFilme = async (id) => {
 
     alert("Filme excluído com Sucesso!!");
 
-    window.location.href = 'listarFilmes.html';
+    window.location.href = '/listar-filmes';
 }
 
 document.addEventListener('click', (e) => {
@@ -91,7 +91,7 @@ document.addEventListener('click', (e) => {
        if (ok) {
         delFilme(id_ex);
        } else {
-        window.location.href = 'listarFilmes.html';
+        window.location.href = '/listar-filmes';
        }      
     }
     

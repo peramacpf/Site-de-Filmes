@@ -1,9 +1,9 @@
 const express = require('express');
 const fs = require('fs');
 const router = express.Router();
+const {isAuthenticated} = require('../middleware/authMiddleware');
 const path = require('path');
 const multer = require('multer');
-
 const DATA_PATH = './data/user.json';
 const DATA_PATH_FILMES = './data/filmes.json';
 
@@ -12,9 +12,41 @@ const storage = multer.diskStorage({
         cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
-        // Renomeando o arquivo de imagem (imagem.jpg => 1749373949.jpg)
         cb(null, Date.now() + path.extname(file.originalname));
     }
+});
+
+router.get('/admin', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'selecionar.html'));
+});
+
+router.get('/cadastrar', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'cadastrar.html'));
+});
+
+router.get('/login',  (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'login.html'));
+});
+
+router.get('/pagina-inicial', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
+
+router.get('/editar-filme', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'editarFilme.html'));
+});
+
+router.get('/listar-filmes', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'listarFilmes.html'));
+});
+
+router.get('/listar-filmes-curtir', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'listarFilmesCurtir.html'));
+});
+
+
+router.get('/cadastrar-filme', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, '../public', 'cadastrarFilme.html'));
 });
 
 const upload = multer({ storage });
@@ -183,7 +215,6 @@ router.delete('/:id', (req, res) => {
     if (data.length !== filtro.length) {
         const img_del = data[idx];
 
-        // Se tiver uma imagem associada ela será excluída
         if (img_del.img_filme) {
             const imagePath = path.join(__dirname, '..', img_del.img_filme);
             fs.unlink(imagePath, (erro) => {

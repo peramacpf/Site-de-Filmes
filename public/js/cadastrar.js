@@ -30,7 +30,7 @@ formularioCadastro.addEventListener("submit", async (e) => {
         });
 
         console.log(formulario);
-        window.location.href = 'login.html';
+        window.location.href = '/login';
 
     }
 });

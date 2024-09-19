@@ -20,5 +20,16 @@
     "enredo": "Uma família mafiosa luta para estabelecer sua supremacia nos Estados Unidos depois da Segunda Guerra Mundial. Uma tentativa de assassinato deixa o chefão Vito Corleone incapacitado e força os filhos Michael e Sonny a assumir os negócios.",
     "img_filme": "/uploads/1726516026985.jpg",
     "curtidas": 1
+  },
+  {
+    "id": 1726771528348,
+    "nome": "A Baleia",
+    "diretor": "Darren Aronofsky",
+    "duracao": "117",
+    "genero": "Drama/Melodrama",
+    "ano_lancamento": 2022,
+    "enredo": "Homem obeso e solitário busca se reconectar com filha adolescente em uma última chance de redenção.",
+    "img_filme": "/uploads/1726771528345.jpg",
+    "curtidas": 0
   }
 ]

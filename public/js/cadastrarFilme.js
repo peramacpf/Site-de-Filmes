@@ -27,7 +27,7 @@ formularioFilmes.addEventListener('submit', async (e) => {
     });
 
     if (confirm("Você deseja cadastrar mais um Filme? ")) {
-        window.location.href = 'cadastrar.html';
+        window.location.href = '/cadastrar';
     } else {
         window.location.href = 'selecionar.html';
     }

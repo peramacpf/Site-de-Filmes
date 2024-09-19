@@ -78,9 +78,62 @@ const mostrarFilmes = (filmes) => {
         divButtonGroup.classList.add('button-group');
         cardBody.appendChild(divButtonGroup);
 
+        let btnCurtir = document.createElement('button');
+        btnCurtir.classList.add('btn', 'btn-success', 'me-3');
+        btnCurtir.innerHTML = `<i class="bi bi-heart"></i> <span>(${filme.curtidas})</span>`;
+        btnCurtir.setAttribute('data-id', filme.id);
+        btnCurtir.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-success')) {
+                const id_curtir = e.target.getAttribute('data-id');
+                const btnCurtir = e.target;
+        
+                if (btnCurtir.classList.contains('curtido')) {
+                    descurtirFilme(id_curtir, btnCurtir);
+                } else {
+                    curtirFilme(id_curtir, btnCurtir);
+                }
+            }
+        });
+        divButtonGroup.appendChild(btnCurtir);
+
         listarFilmes.appendChild(col);
     });
 };
+
+const curtirFilme = async (id, btnCurtir) => {
+    try {
+        const response = await fetch(`/api/paginas/curtir/${id}`, {
+            method: 'PUT',
+        });
+        if (!response.ok) {
+            throw new Error("Erro ao curtir o filme.");
+        }
+        const data = await response.json();
+        btnCurtir.querySelector('span').textContent = `(${data.filme.curtidas})`;
+        btnCurtir.classList.add('curtido');
+    } catch (error) {
+        alert("Erro: " + error.message);
+    }
+}
+
+const descurtirFilme = async (id, btnCurtir) => {
+    try {
+        const response = await fetch(`/api/paginas/descurtir/${id}`, { 
+            method: 'PUT', 
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao descurtir o filme.");
+        }
+
+        const data = await response.json();
+        btnCurtir.querySelector('span').textContent = `(${data.filme.curtidas})`;
+        btnCurtir.classList.remove('curtido');
+
+    } catch (error) {
+        alert("Erro: " + error.message);
+    }
+}
 
 const searchInput = document.querySelector('input[type="search"]');
 searchInput.addEventListener('input', (event) => {

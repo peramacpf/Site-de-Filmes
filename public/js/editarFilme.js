@@ -2,9 +2,6 @@ const form_edit = document.getElementById('editarFilme');
 const url = new URLSearchParams(window.location.search);
 const id_url = url.get('id');
 
-alert(id_url);
-
-
 let id = document.getElementById('id_filme');
 let titulo = document.getElementById("titulo");
 let diretor = document.getElementById("diretor");
@@ -29,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         enredo.value = filme.enredo; 
     } else {
         alert("filme não encontrado!!");
-        window.location.href = 'listarFilmes.html';
+        window.location.href = '/listar-filmes';
     }
 
 });
@@ -47,7 +44,6 @@ form_edit.addEventListener('submit', async (e) => {
     att_dados.append('ano_lancamento', ano.value);
     att_dados.append('enredo', enredo.value);
     
-    // Caso seja adicionado uma nova imagem
     if (img_filme.files.length > 0) {
         att_dados.append('img_prod', img_filme.files[0]);
     }
@@ -58,6 +54,6 @@ form_edit.addEventListener('submit', async (e) => {
     });
 
     alert("filme alterado com sucesso!!");
-    window.location.href = 'listarFilmes.html';
+    window.location.href = '/listar-filmes';
 
 });
